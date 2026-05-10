@@ -26,10 +26,26 @@ const app = express();
 //   credentials: true,
 // }));
 // origin: (process.env.FRONTEND_URL || "http://localhost:5173",
-origin: (process.env.FRONTEND_URL || "https://agri-flow-f.vercel.app",
-  app.use(express.json()));
-app.use(morgan("dev"));
-// FRONTEND_URL=https://agri-flow-f.vercel.app
+// origin: (process.env.FRONTEND_URL || "https://agri-flow-f.vercel.app",
+//   app.use(express.json()));
+// app.use(morgan("dev"));
+const allowedOrigins = [
+  "https://agri-flow-f.vercel.app",
+  process.env.FRONTEND_URL,
+].filter(Boolean);
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error(`CORS blocked: ${origin}`));
+      }
+    },
+    credentials: true,
+  }),
+);
 
 // Routes
 app.use("/api/auth", authRoutes);
