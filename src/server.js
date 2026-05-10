@@ -29,20 +29,9 @@ const app = express();
 // origin: (process.env.FRONTEND_URL || "https://agri-flow-f.vercel.app",
 //   app.use(express.json()));
 // app.use(morgan("dev"));
-const allowedOrigins = [
-  "https://agri-flow-f.vercel.app",
-  process.env.FRONTEND_URL,
-].filter(Boolean);
-
 app.use(
   cors({
-    origin: (origin, callback) => {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error(`CORS blocked: ${origin}`));
-      }
-    },
+    origin: true,
     credentials: true,
   }),
 );
