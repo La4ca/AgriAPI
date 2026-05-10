@@ -26,9 +26,10 @@ const app = express();
 //   credentials: true,
 // }));
 // origin: (process.env.FRONTEND_URL || "http://localhost:5173",
-//   app.use(express.json()));
-// app.use(morgan("dev"));
-FRONTEND_URL=https://agri-flow-f.vercel.app
+origin: (process.env.FRONTEND_URL || "https://agri-flow-f.vercel.app",
+  app.use(express.json()));
+app.use(morgan("dev"));
+// FRONTEND_URL=https://agri-flow-f.vercel.app
 
 // Routes
 app.use("/api/auth", authRoutes);
